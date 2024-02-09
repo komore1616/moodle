@@ -1,0 +1,25 @@
+# Copyright VMware, Inc.
+# SPDX-License-Identifier: APACHE-2.0
+
+version: '2'
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:11.2
+    env_file: .env
+    hostname: mariadb
+  moodle:
+    image: docker.io/bitnami/moodle:4.3
+    env_file: .env
+    hostname: moodle
+    ports:
+      - '${MOODLE_PORT1}:8080'
+      - '${MOODLE_PORT2}:8443'
+    depends_on:
+      - mariadb
+volumes:
+  mariadb_data:
+    driver: local
+  moodle_data:
+    driver: local
+  moodledata_data:
+    driver: local
